@@ -17,7 +17,8 @@ services:
      - pgdb:/var/lib/postgresql/data
 
   sentry:
-    image: sentry
+    build: ./sentry
+    image: naari3/sentry_with_plugins
     links:
      - redis
      - postgres
@@ -31,7 +32,8 @@ services:
       SENTRY_REDIS_HOST: redis
 
   cron:
-    image: sentry
+    build: ./sentry
+    image: naari3/sentry_with_plugins
     links:
      - redis
      - postgres
@@ -44,7 +46,8 @@ services:
       SENTRY_REDIS_HOST: redis
 
   worker:
-    image: sentry
+    build: ./sentry
+    image: naari3/sentry_with_plugins
     links:
      - redis
      - postgres
