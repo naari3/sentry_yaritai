@@ -9,9 +9,9 @@ services:
 
   postgres:
     image: postgres
+    env_file:
+      - .env
     environment:
-      POSTGRES_USER: sentry
-      POSTGRES_PASSWORD: sentry
       POSTGRES_DB: sentry
     volumes:
      - pgdb:/var/lib/postgresql/data
@@ -24,11 +24,10 @@ services:
      - postgres
     ports:
      - 9000:9000
+    env_file:
+      - .env
     environment:
-      SENTRY_SECRET_KEY: '12345678901234567890123456789012'
       SENTRY_POSTGRES_HOST: postgres
-      SENTRY_DB_USER: sentry
-      SENTRY_DB_PASSWORD: sentry
       SENTRY_REDIS_HOST: redis
 
   cron:
@@ -38,11 +37,10 @@ services:
      - redis
      - postgres
     command: "sentry run cron"
+    env_file:
+      - .env
     environment:
-      SENTRY_SECRET_KEY: '12345678901234567890123456789012'
       SENTRY_POSTGRES_HOST: postgres
-      SENTRY_DB_USER: sentry
-      SENTRY_DB_PASSWORD: sentry
       SENTRY_REDIS_HOST: redis
 
   worker:
@@ -52,9 +50,8 @@ services:
      - redis
      - postgres
     command: "sentry run worker"
+    env_file:
+      - .env
     environment:
-      SENTRY_SECRET_KEY: '12345678901234567890123456789012'
       SENTRY_POSTGRES_HOST: postgres
-      SENTRY_DB_USER: sentry
-      SENTRY_DB_PASSWORD: sentry
       SENTRY_REDIS_HOST: redis
